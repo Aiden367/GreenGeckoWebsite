@@ -1,0 +1,20 @@
+{
+    "links":[
+      {
+        "label": "Home",
+        "href":  "/Home" 
+      },
+      {
+          "label": "Sign Up",
+          "href":  "/CreateAccount" 
+      },
+      {
+          "label": "Find Blue Frog",
+          "href":  "/findbluefrog" 
+      },
+      {
+          "label": "Stock Blue Frog",
+          "href":  "/stockbluefrog" 
+      }
+    ]
+}
