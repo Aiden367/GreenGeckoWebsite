@@ -24,13 +24,12 @@
 }
 
 .links-container{
-  margin-right: 20px;
+  margin-left: 1350px;
   display:flex;
   width: 600px;
   justify-content: space-evenly;
 }
 .link a{
-    
    text-decoration: none; 
    text-align: center;
    color: Black;

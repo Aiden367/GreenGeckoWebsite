@@ -35,7 +35,7 @@ const CreateAccount: React.FC = () => {
       const result = await response.json();
       setSuccessMessage('User registered successfully!');
       console.log('User registered successfully',result)
-      navigate('home');
+      navigate('/Login');
       setEnteredFirstName('');
       setEnteredLastName('');
       setEnteredEmail('');
@@ -49,8 +49,7 @@ const CreateAccount: React.FC = () => {
     }
   };
   return (
-    <>
-      <Nav />
+    
       <div className="create-account-container">
         <div className='form-container'>
           <h1>Create Account</h1>
@@ -100,7 +99,7 @@ const CreateAccount: React.FC = () => {
         </div>
       </div>
 
-    </>
+    
 
 
   )

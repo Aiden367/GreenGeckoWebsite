@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 
 const user = require("./routes/user");
+const display = require("./routes/display");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -22,10 +23,11 @@ connectToDatabase()
     process.exit(1);
   });
 
-  app.use(cors());
+app.use(cors());
 app.use(express.json());
-  // Routes 
+// Routes 
 app.use('/user', user);
 app.route("/user")
-  .get(user)  
-  .post(user); 
+  .get(user)
+  .post(user);
+app.use('/display', display);
