@@ -1,4 +1,4 @@
-
+import mongoose from 'mongoose';
 import Nav from "../../COMPONENTS/Navbar"
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -23,7 +23,7 @@ const CreateAccount: React.FC = () => {
       role: 'user'
     };
 
-    const response = await fetch('https://localhost:5000/user/CreateAccount', {
+    const response = await fetch('http://localhost:5000/user/CreateAccount', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

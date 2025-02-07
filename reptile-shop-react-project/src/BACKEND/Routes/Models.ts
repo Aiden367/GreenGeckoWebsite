@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
-    userID: {type:mongoose.Schema.Types.ObjectId, ref: 'User',required:true},
     firstName: {type: String, required:true},
     lastName: {type: String, required:true},
     email: {type: String, required:true},
@@ -10,5 +9,16 @@ const UserSchema = new mongoose.Schema({
 })
 const User = mongoose.model('User',UserSchema);
 
+const ReptileSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    reptileName: { type: String, required: true },
+    reptileCategory: { type: String, required: true },
+    reptilePrice: { type: String, required: true },
+    reptileQuantity: { type: String, required: true },
+    images: [{ type: String }],
+    dateUploaded: { type: String, required: true }
+  });
 
-module.exports = {User};
+const Reptile = mongoose.model('Reptile',ReptileSchema);
+
+module.exports = {User,Reptile};
