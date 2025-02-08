@@ -7,6 +7,7 @@ import CreateAccount from './FRONTEND/Pages/CreateAccount';
 import Login from './FRONTEND/Pages/Login';
 import Dashboard from './FRONTEND/Pages/AdminDashboard';
 import AddReptile from './FRONTEND/Pages/AddReptile';
+import BuyReptiles from './FRONTEND/Pages/BuyReptiles';
 const App: React.FC = () => {
   return (
     <Router>
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Route path="/Login" element={<Login />}/>
         <Route path="/Dashboard" element={<Dashboard/>}/>
         <Route path="/AddReptile" element={<AddReptile/>}/>
+        <Route path="/BuyReptiles" element={<BuyReptiles/>}/>
       </Routes>
     </Router>
   );

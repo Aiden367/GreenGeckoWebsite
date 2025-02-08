@@ -1,0 +1,74 @@
+
+/* Search bar styles */
+.search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-bar input {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+.reptile-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .reptile-box {
+    display: flex;
+    align-items: flex-start; /* Align image and details horizontally */
+    gap: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .reptile-content {
+    display: flex;
+    gap: 20px; /* Space between the image and details */
+    flex: 1;
+  }
+  
+  .reptile-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .reptile-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .reptile-details h2 {
+    margin-bottom: 10px;
+  }
+  
+  .reptile-details p {
+    margin: 5px 0;
+  }
+  
+  /* Styling for thumbnails */
+  .reptile-images {
+    margin-top: 10px;
+  }
+  
+  .reptile-images img {
+    cursor: pointer;
+    border-radius: 4px;
+    transition: border 0.3s;
+  }
+  
+  .reptile-images img:hover {
+    border: 2px solid #007BFF;
+  }
+  

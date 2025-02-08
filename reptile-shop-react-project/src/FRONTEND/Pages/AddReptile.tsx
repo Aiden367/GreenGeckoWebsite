@@ -12,7 +12,10 @@ const UploadReptile: React.FC = () => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setReptileImages(Array.from(e.target.files));
+      // Convert FileList to an array and add it to the existing images
+      const selectedFiles = Array.from(e.target.files);
+
+      setReptileImages((prevImages) => [...prevImages, ...selectedFiles]);
     }
   };
 
@@ -26,13 +29,15 @@ const UploadReptile: React.FC = () => {
     formData.append('reptilePrice', enteredReptilePrice);
     formData.append('reptileQuantity', enteredReptileQuantity);
 
+    // Append each image to the FormData object
     reptileImages.forEach((image) => {
-      formData.append('images', image); // Append each image under the same field 'images'
+      formData.append('images', image);
     });
 
     // Get the token from localStorage (assuming it's saved there after login)
     const token = localStorage.getItem('token');
     console.log(token);
+
     try {
       const response = await fetch('http://localhost:5000/user/UploadReptile', {
         method: 'POST',
@@ -54,7 +59,7 @@ const UploadReptile: React.FC = () => {
         setEnteredReptileCategory('');
         setEnteredReptilePrice('');
         setEnteredReptileQuantity('');
-        setReptileImages([]);
+        setReptileImages([]);  // Clear images after upload
       } else {
         const errorData = await response.json();
         setError(errorData.error || 'Upload failed');
@@ -117,6 +122,17 @@ const UploadReptile: React.FC = () => {
               multiple
               onChange={handleImageChange}
             />
+            <div>
+              {reptileImages.map((image, index) => (
+                <img
+                  key={index}
+                  src={URL.createObjectURL(image)}
+                  alt={`preview-${index}`}
+                  width="100"
+                  height="100"
+                />
+              ))}
+            </div>
           </div>
           <button type="submit" className="create-account-btn" disabled={isLoading}>
             {isLoading ? 'Uploading...' : 'Upload Reptile'}
