@@ -5,7 +5,7 @@ import GeckoImage from "../Images/gecko_Category_IMG.jpg"
 import SnakeImage from "../Images/snake_Category_IMG.jpg"
 import './Styles/Home.css'
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
 const CarouselOfReptiles: React.FC = () => {
   const [reptiles, setReptiles] = useState<any[]>([]);
 
@@ -52,18 +52,37 @@ const CarouselOfReptiles: React.FC = () => {
 };
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Nav />
-
-      <div className="image-container">
-        <img src={LizardImage} alt="Lizard Image" />
-        <img src={SnakeImage} alt="Snake Image" />
-        <img src={GeckoImage} alt="Gecko Image" />
+      <div className="Home-page-heading">
+        <h1>Welcome to GreenGecko</h1>
+        <h2>A website to sell your reptiles</h2>
+        <button className="explore-button" onClick={() => navigate("/AddReptile")}>
+          Add Your Own Reptile for sale
+          </button>
       </div>
+      <h3 className="categories-heading">Categories</h3>
+      <div className="image-container">
+        <div className="image-wrapper">
+          <img src={LizardImage} alt="Lizard" />
+          <span className="image-text">Lizard</span>
+        </div>
+        <div className="image-wrapper">
+          <img src={SnakeImage} alt="Snake" />
+          <span className="image-text">Snake</span>
+        </div>
+        <div className="image-wrapper">
+          <img src={GeckoImage} alt="Gecko" />
+          <span className="image-text">Gecko</span>
+        </div>
+      </div>
+
       <CarouselOfReptiles />
     </>
   );
 };
+
 
 export default Home;

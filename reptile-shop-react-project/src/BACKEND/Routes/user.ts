@@ -67,40 +67,69 @@ router.post('/CreateAccount', async (req, res) => {
     }
 })
 
-router.post("/Login",async(req,res) =>{
-const{firstName,lastName,password} = req.body;
-const user = await User.findOne({firstName,lastName})
-if (!user) {
-  return res.status(401).send({ error: "Invalid username or password" });
-}
-// Compare the provided password with the hashed password in the database
-const isMatch = await bcrypt.compare(password, user.password);
-if (!isMatch) {
+// In Login route
+router.post("/Login", async (req, res) => {
+  const { firstName, lastName, password } = req.body;
+  const user = await User.findOne({ firstName, lastName });
+
+  if (!user) {
     return res.status(401).send({ error: "Invalid username or password" });
-}
+  }
 
-// Generate a JWT for the user, including the role in the payload
-const token = jwt.sign(
-  { 
+  // Compare the provided password with the hashed password in the database
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(401).send({ error: "Invalid username or password" });
+  }
+
+  // Generate a JWT for the user, including the role in the payload
+  const token = jwt.sign(
+    { 
+      id: user._id, // User ID
+      username: user.username, // Username
+      role: user.role // Role (admin, user, etc.)
+    }, 
+    process.env.JWT_SECRET, // The secret for signing the token
+    { expiresIn: '1h' } // Token expiry time
+  );
+
+  // Respond with the token, user info, and account details
+  res.status(200).send({ 
+    token, 
+    user: { 
       id: user._id, 
-      username: user.username,
-      role: user.role  // Include the role in the token
-  }, 
-  process.env.JWT_SECRET, 
-  { expiresIn: '1h' }
-);
-// Respond with the token, user info, and account details
-res.status(200).send({ token, user: { id: user._id, username: user.username, role: user.role }
-})});
+      username: user.username, 
+      role: user.role 
+    }
+  });
+});
 
+
+// In UploadReptile route
 router.post('/UploadReptile', upload.array('images', 5), async (req: Request, res: Response) => {
   try {
+    // Get the token from the Authorization header
+    const token = req.headers.authorization?.split(' ')[1];  // Assuming the token is in the "Authorization: Bearer <token>" format
+
+    if (!token) {
+      return res.status(401).json({ error: 'Authorization token is missing' });
+    }
+
+    // Decode and verify the token to get the user ID
+    let decoded: any;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET); // Ensure you use your actual JWT secret key
+    } catch (error) {
+      return res.status(401).json({ error: 'Invalid or expired token' });
+    }
+
+    const userId = decoded.id; // Assuming the user ID is stored in the token payload
+
     if (!req.files || (req.files as Express.Multer.File[]).length === 0) {
       return res.status(400).json({ error: 'No images uploaded' });
     }
 
     const files = req.files as Express.Multer.File[];
-
     const imageUrls: string[] = [];
 
     // Upload each image to GCS
@@ -120,16 +149,17 @@ router.post('/UploadReptile', upload.array('images', 5), async (req: Request, re
       imageUrls.push(imageUrl);
     }
 
-    const { userId, reptileName, reptileCategory, reptilePrice, reptileQuantity } = req.body;
+    // Assuming the other data comes from the request body
+    const { reptileName, reptileCategory, reptilePrice, reptileQuantity } = req.body;
 
-    // Save reptile info along with image URLs
+    // Save reptile info along with image URLs and user ID
     const newReptile = new Reptile({
-      userId,
+      userId,  // The userId from the token
       reptileName,
       reptileCategory,
       reptilePrice,
       reptileQuantity,
-      images: imageUrls, // Store URLs instead of image buffers
+      images: imageUrls,  // Store URLs instead of image buffers
       dateUploaded: new Date().toISOString(),
     });
 
@@ -140,6 +170,7 @@ router.post('/UploadReptile', upload.array('images', 5), async (req: Request, re
     res.status(500).json({ error: 'Error uploading reptile profile' });
   }
 });
+
 
 
 
