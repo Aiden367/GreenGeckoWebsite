@@ -6,6 +6,7 @@ const UploadReptile: React.FC = () => {
   const [enteredReptilePrice, setEnteredReptilePrice] = useState('');
   const [enteredReptileQuantity, setEnteredReptileQuantity] = useState('');
   const [reptileImages, setReptileImages] = useState<File[]>([]);
+  const[enteredReptileLocation,setEnteredReptileLocation] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false); // For showing loading state
@@ -60,6 +61,7 @@ const UploadReptile: React.FC = () => {
         setEnteredReptilePrice('');
         setEnteredReptileQuantity('');
         setReptileImages([]);  // Clear images after upload
+        setEnteredReptileLocation('');
       } else {
         const errorData = await response.json();
         setError(errorData.error || 'Upload failed');
@@ -113,6 +115,14 @@ const UploadReptile: React.FC = () => {
               placeholder="Reptile Quantity"
               value={enteredReptileQuantity}
               onChange={(e) => setEnteredReptileQuantity(e.target.value)}
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="text"
+              placeholder="Location"
+              value={enteredReptileLocation}
+              onChange={(e) => setEnteredReptileLocation(e.target.value)}
             />
           </div>
           <div className="input-group">

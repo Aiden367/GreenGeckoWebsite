@@ -9,7 +9,6 @@ interface UserDocument extends Document {
   role: string;
 }
 
-// Reptile model interface
 export type ReptileDocument = Document & {
   userId: mongoose.Schema.Types.ObjectId;
   reptileName: string;
@@ -18,8 +17,14 @@ export type ReptileDocument = Document & {
   reptileQuantity: string;
   images: Buffer[];  // Store image Buffers
   dateUploaded: string;
-  imageBase64?: string[];  // Add imageBase64 as an optional field for the response
+  location: string;
+  imageBase64?: string[];  // Optional field for the response
+  uploadedBy?: {   // Add uploader details
+    firstName: string;
+    lastName: string;
+  };
 };
+
 
 
 // ReptileImageForHomeScreen model interface
@@ -49,6 +54,7 @@ const ReptileSchema = new mongoose.Schema({
   reptileQuantity: { type: String, required: true },
   images: { type: [String], required: true },
   dateUploaded: { type: String, required: true },
+  location: {type:String,required:true}
 });
 
 // Create Reptile model

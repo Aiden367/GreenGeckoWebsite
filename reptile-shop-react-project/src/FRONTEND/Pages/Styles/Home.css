@@ -1,23 +1,27 @@
 
 .Home-page-heading {
   display: flex;
-  flex-direction: column; /* Stacks elements vertically */
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
-  width: 100%;
+  flex-direction: column;
+  justify-content: center; /* Keeps it centered vertically */
+  align-items: flex-start; /* Aligns content to the left */
+  width: 150%;
+  height: 400px;
   margin-top: 20px;
-  text-align: center;
+  text-align: left; /* Aligns text inside elements to the left */
+  background-color: black;
+  padding-left: 100px; /* Adds some spacing from the left */
 }
+
 
 .Home-page-heading h1 {
   font-size: 3rem;
-  color: #333;
+  color: white;
   margin-bottom: 10px; /* Adds spacing below h1 */
 }
 
 .Home-page-heading h2 {
   font-size: 1.5rem;
-  color: #666;
+  color: White;
   font-weight: normal;
 }
 
@@ -26,7 +30,9 @@
   font-size: 2rem;    /* Adjust size */
   font-weight: bold;
   margin-top: 30px;   /* Adds spacing */
-  color: #333;        /* Adjust color */
+  color: #333;
+  padding-left:5px; 
+  text-align: left;       /* Adjust color */
 }
 
 
@@ -135,4 +141,5 @@ img:hover{
   .arrow:hover {
     background: rgba(0, 0, 0, 0.8);
   }
+
   
